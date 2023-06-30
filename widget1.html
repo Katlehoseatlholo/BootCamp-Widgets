@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Items Over</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2"></script>
+</head>
+
+<body>
+    <div x-data="{
+    listOfObjects: [
+      { name: 'Item 1', qty: 15 },
+      { name: 'Item 2', qty: 25 },
+      { name: 'Item 3', qty: 30 }
+    ],
+    threshold: 20,
+    itemsOver20: [],
+    itemsOverThreshold: [],
+    findItemsOver20() {
+      this.itemsOver20 = this.findItemsOver(this.listOfObjects, 20);
+    },
+    findItemsOverThreshold() {
+      this.itemsOverThreshold = this.findItemsOver(this.listOfObjects, this.threshold);
+    },
+    findItemsOver(listOfObjects, threshold) {
+      var finalArr = [];
+      
+      for (var i = 0; i = listOfObjects.length -1; i++) {
+        if (listOfObjects[i].qty > threshold) {
+          finalArr.push(listOfObjects[i]);
+        }
+      }
+      
+      return finalArr;
+    }
+  }">
+        <div class="container mt-5">
+            <h1>Find Items Over</h1>
+
+            <h2>Items Over 20</h2>
+            <button class="btn btn-primary" @click="findItemsOver20()">Find</button>
+            <ul>
+                <template x-for="item in itemsOver20" :key="item.name">
+                    <li><span x-text="item.name"></span> - <span x-text="item.qty"></span></li>
+                </template>
+            </ul>
+
+            <h2>Items Over Threshold</h2>
+            <div class="form-group">
+                <label for="threshold">Enter threshold:</label>
+                <input type="number" class="form-control" id="threshold" x-model="threshold"
+                    placeholder="Enter threshold">
+            </div>
+            <button class="btn btn-primary" @click="findItemsOverThreshold()">Find</button>
+            <ul>
+                <template x-for="item in itemsOverThreshold" :key="item.name">
+                    <li><span x-text="item.name"></span> - <span x-text="item.qty"></span></li>
+                </template>
+            </ul>
+        </div>
+    </div>
+    <hr/>
+   <a href="widget3.html" ><button class="btn btn-primary" >BACK</button></a>
+    <script>// This function takes a list of objects and returns an array of objects with quantity (qty) greater than 20.
+        function findItemsOver20(listOfObjects) {
+            var finalArr = [];
+
+            for (var i = 0; i < listOfObjects.length; i++) {
+                if (listOfObjects[i].qty > 20) {
+                    finalArr.push(listOfObjects[i]);
+                }
+            }
+
+            console.log(finalArr);
+            return finalArr;
+        }
+        // This function takes a list of objects and a threshold, and returns an array of objects with quantity (qty) greater than the threshold.
+        function findItemsOver(listOfObjects, threshold) {
+            var finalArr = [];
+
+            for (var i = 0; i < listOfObjects.length; i++) {
+                if (listOfObjects[i].qty > threshold) {
+                    finalArr.push(listOfObjects[i]);
+                }
+            }
+
+            return finalArr;
+        }
+
+    </script>
+</body>
+
+</html>

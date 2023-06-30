@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Analysis Widget</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2"></script>
+</head>
+
+<body>
+    <div x-data="{
+    string: '',
+    wordCount: 0,
+    wordLength: 0,
+    shortestWord: '',
+    longestWord: '',
+    analyzeString() {
+      this.wordCount = this.countWords(this.string);
+      this.wordLength = this.wordLengths(this.string);
+      this.shortestWord = this.shortestWord(this.string);
+      this.longestWord = this.longestWord(this.string);
+    },
+    countWords(string) {
+      const words = string.split(' ');
+      return words.length;
+    },
+    wordLengths(string) {
+      const words = string.split(' ');
+      let count = 0;
+
+      for (let i = 0; i < words.length; i++) {
+        count += words[i].length;
+      }
+
+      return count;
+    },
+    shortestWord(string) {
+      const words = string.split(' ');
+      let shortest = words[0];
+
+      for (let i = 1; i < words.length; i++) {
+        if (words[i].length <= shortest.length) {
+          shortest = words[i];
+        }
+      }
+
+      return shortest;
+    },
+    longestWord(string) {
+      const words = string.split(' ');
+      let longest = words[0];
+
+      for (let i = 1; i < words.length; i++) {
+        if (words[i].length >= longest.length) {
+          longest = words[i];
+        }
+      }
+
+      return longest;
+    }
+  }">
+        <div class="container mt-5">
+            <h1>Word Analysis Widget</h1>
+            <div class="form-group">
+                <label for="string">Enter a String:</label>
+                <input type="text" class="form-control" id="string" x-model="string" placeholder="Enter a string">
+            </div>
+            <button class="btn btn-primary" @click="analyzeString()">Analyze</button>
+            <div class="mt-3" x-show="wordCount > 0">
+                <strong>Word Count:</strong> <span x-text="wordCount"></span>
+            </div>
+            <div class="mt-3" x-show="wordLength > 0">
+                <strong>Total Word Length:</strong> <span x-text="wordLength"></span>
+            </div>
+            <div class="mt-3" x-show="shortestWord !== ''">
+                <strong>Shortest Word:</strong> <span x-text="shortestWord"></span>
+            </div>
+            <div class="mt-3" x-show="longestWord !== ''">
+                <strong>Longest Word:</strong> <span x-text="longestWord"></span>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <a href="widget1.html"><button class="btn btn-primary" >NEXT WIDGET</button></a>
+   <a href="widget2.html"> <button class="btn btn-primary" >Previous WIDGET</button></a>
+
+</body>
+<script>// This function takes a string as input and returns the total count of words in the string.
+    function countWords(string) {
+        const words = string.split(' '); // split the string into an array of words
+        return words.length;
+    }
+</script>
+
+</html>

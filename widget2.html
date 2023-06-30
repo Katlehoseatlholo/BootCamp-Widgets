@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Phone Bill Calculator</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2"></script>
+</head>
+
+<body>
+    <div x-data="{
+    params: '',
+    totalCost: '',
+    calculateTotalCost() {
+      this.totalCost = this.totalPhoneBill(this.params);
+    },
+    totalPhoneBill(params) {
+      const callCost = 2.75;
+      const smsCost = 0.65;
+      
+      let userCosts = 0;
+      const arr = params.split(',');
+       for(let i=0; i < arr.length; i++) { if(arr[i].trim()==='call' ) { userCosts
+        +=callCost; } else if(arr[i].trim()==='sms' ) { userCosts +=smsCost; } } return 'R' + userCosts.toFixed(2); }
+        }">
+        <div class="container mt-5">
+            <h1>Total Phone Bill Calculator</h1>
+            <div class="form-group">
+                <label for="params">Enter call and SMS details:</label>
+                <input type="text" class="form-control" id="params" x-model="params"
+                    placeholder="Enter call and SMS details">
+            </div>
+            <button class="btn btn-primary" @click="calculateTotalCost()">Calculate</button>
+            <div class="mt-3" x-show="totalCost !== ''">
+                <strong>Total Phone Bill:</strong> <span x-text="totalCost"></span>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <a href="widget3.html"><button class="btn btn-primary" >NEXT WIDGET</button></a>
+    <a href="index.html"><button class="btn btn-primary" >Previous WIDGET</button></a>
+</body>
+<script>// This function takes a string as input and returns the total cost of phone calls and SMS.
+    function totalPhoneBill(params) {
+        // Define the cost of calls and SMS
+        const callCost = 2.75;
+        const smsCost = 0.65;
+
+        // Set the initial cost to 0
+        let userCosts = 0;
+
+        // Split the input into an array of strings
+        const arr = params.split(",");
+
+        // Iterate through each item in the array
+        for (let i = 0; i < arr.length; i++) {
+            // If the item is a call, add the call cost to the total
+            if (arr[i].trim() === 'call') {
+                userCosts += callCost;
+            }
+            // If the item is an SMS, add the SMS cost to the total
+            else if (arr[i].trim() === 'sms') {
+                userCosts += smsCost;
+            }
+        }
+
+        // Return the total cost with 'R' appended to the front and fixed to 2 decimal places
+        return "R" + userCosts.toFixed(2);
+    }
+</script>
+
+</html>

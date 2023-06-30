@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enough Airtime Widget</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2"></script>
+</head>
+
+<body>
+    <div x-data="{
+    airtimeUsage: '',
+    airtime: 0,
+    callCost: 1.88,
+    dataCost: 12,
+    smsCost: 0.75,
+    remainingAirtime: 'R0.00',
+    calculateRemainingAirtime() {
+      const newArr = this.airtimeUsage.split(',');
+       let remainingAirtime=this.airtime; 
+       for (let i=0; i < newArr.length;i++)
+        { if (newArr[i].includes('call')) { remainingAirtime -=this.callCost; } 
+        else if (newArr[i].includes('sms'))
+        { remainingAirtime -=this.smsCost; }
+         else { remainingAirtime -=this.dataCost; } 
+        } this.remainingAirtime='R' +
+        Math.max(remainingAirtime, 0).toFixed(2); } }">
+        <div class="container mt-5">
+            <h1>Enough Airtime Widget</h1>
+            <div class="form-group">
+                <label for="airtimeUsage">Airtime Usage (comma-separated):</label>
+                <input type="text" class="form-control" id="airtimeUsage" x-model="airtimeUsage"
+                    placeholder="Enter airtime usage">
+            </div>
+            <div class="form-group">
+                <label for="airtime">Total Airtime:</label>
+                <input type="number" class="form-control" id="airtime" x-model="airtime"
+                    placeholder="Enter total airtime">
+            </div>
+            <button class="btn btn-primary" @click="calculateRemainingAirtime()">Calculate Remaining Airtime</button>
+            <div class="mt-3">
+                <strong>Remaining Airtime:</strong> <span x-text="remainingAirtime"></span>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <a href="widget2.html"><button class="btn btn-primary" >NEXT WIDGET</button></a>
+</body>
+
+</html>
